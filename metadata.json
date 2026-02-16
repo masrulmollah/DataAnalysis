@@ -1,0 +1,7 @@
+{
+  "name": "InsightStream AI",
+  "description": "An advanced data analytics platform that processes PDF, CSV, and Excel files using Gemini 3 Pro to provide deep insights, suggestions, and real-time interactive Q&A.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
