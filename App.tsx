@@ -1,11 +1,11 @@
 
-import React, { useState, useCallback } from 'react';
-import FileUpload from './components/FileUpload';
-import Dashboard from './components/Dashboard';
-import ChatInterface from './components/ChatInterface';
-import { parseCSV, parseExcel, parsePDF } from './services/fileParser';
-import { analyzeData, chatWithData } from './services/geminiService';
-import { DataAnalysisResult, ChatMessage, FileData } from './types';
+import React, { useState } from 'react';
+import FileUpload from './components/FileUpload.tsx';
+import Dashboard from './components/Dashboard.tsx';
+import ChatInterface from './components/ChatInterface.tsx';
+import { parseCSV, parseExcel, parsePDF } from './services/fileParser.ts';
+import { analyzeData, chatWithData } from './services/geminiService.ts';
+import { DataAnalysisResult, ChatMessage, FileData } from './types.ts';
 
 const App: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -38,7 +38,6 @@ const App: React.FC = () => {
       const result = await analyzeData(file.name, content);
       setAnalysis(result);
       
-      // Clear previous chat
       setChatMessages([]);
     } catch (err: any) {
       console.error(err);
@@ -65,7 +64,7 @@ const App: React.FC = () => {
       const aiMsg: ChatMessage = { role: 'model', text: response || 'Sorry, I could not process that.', timestamp: new Date() };
       setChatMessages(prev => [...prev, aiMsg]);
     } catch (err: any) {
-      const errMsg: ChatMessage = { role: 'model', text: 'Error communicating with AI: ' + err.message, timestamp: new Date() };
+      const errMsg: ChatMessage = { role: 'model', text: 'Error: ' + err.message, timestamp: new Date() };
       setChatMessages(prev => [...prev, errMsg]);
     } finally {
       setIsChatLoading(false);
@@ -81,7 +80,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -130,12 +128,6 @@ const App: React.FC = () => {
         ) : analysis && fileData && (
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
             <div className="xl:col-span-8 space-y-8">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-slate-900">Analysis Dashboard</h2>
-                  <p className="text-slate-500">Insights for: <span className="font-semibold text-blue-600">{fileData.name}</span></p>
-                </div>
-              </div>
               <Dashboard analysis={analysis} fileName={fileData.name} />
             </div>
             
@@ -154,7 +146,6 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
       <footer className="bg-white border-t border-slate-200 py-6 text-center">
         <p className="text-slate-400 text-sm font-medium">Powered by Gemini 3 Pro & Google Generative AI</p>
       </footer>
