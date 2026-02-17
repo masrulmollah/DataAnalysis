@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import FileUpload from './components/FileUpload.tsx';
-import Dashboard from './components/Dashboard.tsx';
-import ChatInterface from './components/ChatInterface.tsx';
-import { parseCSV, parseExcel, parsePDF } from './services/fileParser.ts';
-import { analyzeData, chatWithData } from './services/geminiService.ts';
-import { DataAnalysisResult, ChatMessage, FileData } from './types.ts';
+import FileUpload from './components/FileUpload';
+import Dashboard from './components/Dashboard';
+import ChatInterface from './components/ChatInterface';
+import { parseCSV, parseExcel, parsePDF } from './services/fileParser';
+import { analyzeData, chatWithData } from './services/geminiService';
+import { DataAnalysisResult, ChatMessage, FileData } from './types';
 
 const App: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
